@@ -20,6 +20,31 @@ var api = new ParseServer({
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
+  emailAdapter: {
+    module: 'parse-server-mailgun-adapter-template',
+    options: {
+      // The address that your emails come from
+      fromAddress: 'no-reply@sandbox454508d3d2ff45f9b52e67ae329e7d68.mailgun.org',
+      // Your domain from mailgun.com
+      domain: 'sandbox454508d3d2ff45f9b52e67ae329e7d68.mailgun.org',
+      // Your API key from mailgun.com
+      apiKey: 'key-f3e95408fe7abbeedeccd18abacaef6c-a65173b1-289c89eb',
+
+      // Verification email subject
+      verificationSubject: 'Please verify your e-mail for %appname%',
+      // Verification email body
+      verificationBody: 'Hi,\n\nYou are being asked to confirm the e-mail address %email% with %appname%\n\nClick here to confirm it:\n%link%',
+      //OPTIONAL (will send HTML version of email):
+      verificationBodyHTML: fs.readFileSync("./verificationBody.html", "utf8") ||  null,
+
+      // Password reset email subject
+      passwordResetSubject: 'Password Reset Request for %appname%',
+      // Password reset email body
+      passwordResetBody: 'Hi,\n\nYou requested a password reset for %appname%.\n\nClick here to reset it:\n%link%',
+      //OPTIONAL (will send HTML version of email):
+      passwordResetBodyHTML: "<!DOCTYPE html><html xmlns=http://www.w3.org/1999/xhtml>........"
+    }
+  }
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
